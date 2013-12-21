@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<form:Form xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:form="http://www.big.tuwien.ac.at/form/1.0"
+    welcomePage="//@pages.0">
+  <pages title="Registration information">
+    <elements
+        xsi:type="form:Heading"
+        elementId="page0_1"
+        content="Registration"
+        level="1"/>
+    <elements
+        xsi:type="form:Heading"
+        elementId="page0_2"
+        content="Registration conditions"
+        level="2"/>
+    <elements
+        xsi:type="form:Paragraph"
+        elementId="page0_3"
+        content="To be able to register, you have to fulfill the following conditions:"/>
+    <elements
+        xsi:type="form:List"
+        elementId="page0_4">
+      <items
+          label="You have to live in Austria."/>
+      <items
+          label="You have to be current full-time student of a Viennese university."/>
+    </elements>
+    <elements
+        xsi:type="form:Heading"
+        elementId="page0_5"
+        content="Registration procedure"
+        level="2"/>
+    <elements
+        xsi:type="form:Paragraph"
+        elementId="page0_6"
+        content="The registration is a two-phase process:"/>
+    <elements
+        xsi:type="form:List"
+        elementId="page0_7"
+        ordered="true">
+      <items
+          label="First you have to fill in the registration form."/>
+      <items
+          label="Your application will be confirmed by E-Mail."/>
+    </elements>
+  </pages>
+  <pages nextPage="//@pages.2"
+      title="Personal data">
+    <elements
+        xsi:type="form:Heading"
+        elementId="page1_h1"
+        content="Library registration"
+        level="1"/>
+    <elements
+        xsi:type="form:Heading"
+        elementId="page1_h2"
+        content="Personal data"
+        level="2"/>
+    <elements
+        xsi:type="form:TextField"
+        elementId="page1_q1"
+        label="First name"
+        mandatory="false"/>
+    <elements
+        xsi:type="form:TextField"
+        elementId="page1_q2"
+        label="Last name"
+        mandatory="false"/>
+    <elements
+        xsi:type="form:TextField"
+        elementId="page1_q3"
+        label="E-mail"/>
+    <elements
+        xsi:type="form:TextArea"
+        elementId="page1_q4"
+        label="Address"
+        mandatory="false"/>
+    <elements
+        xsi:type="form:TextField"
+        elementId="page1_q5"
+        label="Username"/>
+    <elements
+        xsi:type="form:TextField"
+        elementId="page1_q6"
+        label="Password"/>
+    <elements
+        xsi:type="form:SelectionField"
+        elementId="page1_q7"
+        label="Are you student at a Viennese university?"
+        mandatory="false">
+      <items
+          label="Yes"/>
+      <items
+          label="No"/>
+    </elements>
+    <visibilityConditions
+        xsi:type="form:SelectionCondition"
+        concernsElements="//@pages.2/@elements.2"
+        item="//@pages.1/@elements.8/@items.0"/>
+    <visibilityConditions
+        xsi:type="form:SelectionCondition"
+        concernsElements="//@pages.2/@elements.3"
+        item="//@pages.1/@elements.8/@items.1"/>
+  </pages>
+  <pages title="University information"
+      previousPage="//@pages.1">
+    <elements
+        xsi:type="form:Heading"
+        elementId="page2_h1"
+        content="Library registration"
+        level="1"/>
+    <elements
+        xsi:type="form:Heading"
+        elementId="page2_h2"
+        content="University information"
+        level="2"/>
+    <elements
+        xsi:type="form:SelectionField"
+        elementId="page2_q1_1"
+        label="At which university are you studying?"
+        mandatory="false"
+        selectionFieldType="Checkbox">
+      <items
+          label="University of Vienna"
+          selected="true"/>
+      <items
+          label="Vienna University of Technology"/>
+      <items
+          label="Vienna University of Economics and Business"/>
+      <items
+          label="University of Natural Resources and Life Science"/>
+    </elements>
+    <elements
+        xsi:type="form:TextField"
+        elementId="page2_q1_2"
+        label="At which university are you studying?"
+        mandatory="false"/>
+    <elements
+        xsi:type="form:SelectionField"
+        elementId="page2_q2"
+        label="Do you regard the library as important resource for your study?"
+        mandatory="false"
+        selectionFieldType="Combobox">
+      <items
+          label="-2"/>
+      <items
+          label="-1"/>
+      <items
+          label="0"/>
+      <items
+          label="1"/>
+      <items
+          label="2"/>
+    </elements>
+  </pages>
+</form:Form>

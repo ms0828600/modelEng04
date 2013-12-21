@@ -1,0 +1,18 @@
+@import url("http://netdna.bootstrapcdn.com/bootswatch/3.0.0/flatly/bootstrap.min.css");
+
+h1, h2 {margin-top: 5px;}
+
+label.lone {
+	margin-top: 10px;
+	margin-bottom: 0px;
+}
+
+label.radio, label.checkbox {font-weight: normal;}
+
+body {padding-top: 20px;}
+
+dd {margin-left: 10px;}
+
+.missing {color:red;}
+
+.hidden{display:none;}

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Registration information</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+		<link href="../assets/form.css" rel="stylesheet" media="screen"/>
+		<script src="../assets/jquery-1.10.2.min.js" type="text/javascript"></script>
+		<script src="../assets/form.js" type="text/javascript"></script>
+		<script type="text/javascript">
+		$(document).ready(
+			function(){
+				form.init();
+				form.registerOptional('page1_q1');
+				form.registerOptional('page1_q2');
+				form.registerMandatory('page1_q3');
+				form.registerOptional('page1_q4');
+				form.registerMandatory('page1_q5');
+				form.registerMandatory('page1_q6');
+				form.registerOptional('page1_q7');
+				form.registerOptional('page2_q1_1');
+				form.registerOptional('page2_q1_2');
+				form.registerOptional('page2_q2');
+				
+				form.registerElement('page0_1');
+				form.registerElement('page0_2');
+				form.registerElement('page0_3');
+				form.registerElement('page0_4');
+				form.registerElement('page0_5');
+				form.registerElement('page0_6');
+				form.registerElement('page0_7');
+				form.registerElement('page1_h1');
+				form.registerElement('page1_h2');
+				form.registerElement('page1_q1');
+				form.registerElement('page1_q2');
+				form.registerElement('page1_q3');
+				form.registerElement('page1_q4');
+				form.registerElement('page1_q5');
+				form.registerElement('page1_q6');
+				form.registerElement('page1_q7');
+				form.registerElement('page2_h1');
+				form.registerElement('page2_h2');
+				form.registerElement('page2_q1_1');
+				form.registerElement('page2_q1_2');
+				form.registerElement('page2_q2');
+				
+				form.registerConditional('page1_q7', 'Yes', 
+				['page2_q1_1']
+				);
+				form.registerConditional('page1_q7', 'No', 
+				['page2_q1_2']
+				);
+			});
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="page">
+				<div class="well">
+					<form action="#">
+						<fieldset>
+							<h1 id="page0_1">Registration</h1>
+							<h2 id="page0_2">Registration conditions</h2>
+							<p id="page0_3">To be able to register, you have to fulfill the following conditions:</p>
+							<ul id="page0_4">
+								<li>You have to live in Austria.</li>
+								<li>You have to be current full-time student of a Viennese university.</li>
+							</ul>
+							<h2 id="page0_5">Registration procedure</h2>
+							<p id="page0_6">The registration is a two-phase process:</p>
+							<ol id="page0_7">
+								<li>First you have to fill in the registration form.</li>
+								<li>Your application will be confirmed by E-Mail.</li>
+							</ol>
+						</fieldset>
+					</form>
+				</div>
+			</div>
+			<div class="page">
+				<div class="well">
+					<form action="#">
+						<fieldset>
+							<h1 id="page1_h1">Library registration</h1>
+							<h2 id="page1_h2">Personal data</h2>
+							<div class="control-group">
+								<label for="page1_q1">First name</label>
+								<div class="controls">
+									<input type="text" id="page1_q1"/>
+								</div>
+							</div>
+							<div class="control-group">
+								<label for="page1_q2">Last name</label>
+								<div class="controls">
+									<input type="text" id="page1_q2"/>
+								</div>
+							</div>
+							<div class="control-group">
+								<label for="page1_q3">E-mail</label>
+								<div class="controls">
+									<input type="text" id="page1_q3"/>
+								</div>
+							</div>
+							<div class="control-group">
+								<label for="page1_q4">Address</label>
+								<div class="controls">
+									<textarea id="page1_q4"></textarea>
+								</div>
+							</div>
+							<div class="control-group">
+								<label for="page1_q5">Username</label>
+								<div class="controls">
+									<input type="text" id="page1_q5"/>
+								</div>
+							</div>
+							<div class="control-group">
+								<label for="page1_q6">Password</label>
+								<div class="controls">
+									<input type="text" id="page1_q6"/>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="lone" id="label_for_page1_q7">Are you student at a Viennese university?</label>
+								<div class="controls" id="page1_q7">
+									<label class="radio" for="page1_q7_0">
+										<input type="radio" value="Yes" name="page1_q7" id="page1_q7_0" /> Yes
+									</label>
+									<label class="radio" for="page1_q7_1">
+										<input type="radio" value="No" name="page1_q7" id="page1_q7_1" /> No
+									</label>
+								</div>
+							</div>	
+						</fieldset>
+					</form>
+				</div>
+			</div>
+			<div class="page">
+				<div class="well">
+					<form action="#">
+						<fieldset>
+							<h1 id="page2_h1">Library registration</h1>
+							<h2 id="page2_h2">University information</h2>
+							<div class="control-group">
+								<label class="lone" id="label_for_page2_q1_1">At which university are you studying?</label>
+								<div class="controls" id="page2_q1_1">
+									<label class="checkbox" for="page2_q1_1_0">
+										<input type="checkbox" value="University of Vienna" name="page2_q1_1" id="page2_q1_1_0" checked="checked"/> University of Vienna
+									</label>
+									<label class="checkbox" for="page2_q1_1_1">
+										<input type="checkbox" value="Vienna University of Technology" name="page2_q1_1" id="page2_q1_1_1" /> Vienna University of Technology
+									</label>
+									<label class="checkbox" for="page2_q1_1_2">
+										<input type="checkbox" value="Vienna University of Economics and Business" name="page2_q1_1" id="page2_q1_1_2" /> Vienna University of Economics and Business
+									</label>
+									<label class="checkbox" for="page2_q1_1_3">
+										<input type="checkbox" value="University of Natural Resources and Life Science" name="page2_q1_1" id="page2_q1_1_3" /> University of Natural Resources and Life Science
+									</label>
+								</div>
+							</div>
+							<div class="control-group">
+								<label for="page2_q1_2">At which university are you studying?</label>
+								<div class="controls">
+									<input type="text" id="page2_q1_2"/>
+								</div>
+							</div>
+							<div class="control-group">
+								<label for="page2_q2" class="lone">Do you regard the library as important resource for your study?</label>
+								<div class="controls">
+									<select id="page2_q2">
+										<option value="-2">-2</option>
+										<option value="-1">-1</option>
+										<option value="0">0</option>
+										<option value="1">1</option>
+										<option value="2">2</option>
+									</select>
+								</div>
+							</div>	
+						</fieldset>
+					</form>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

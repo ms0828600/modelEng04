@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/at.ac.tuwien.big.form/src" modelPluginID="at.ac.tuwien.big.form"
+    modelName="Form" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="7.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>form.ecore</foreignModel>
+  <genPackages prefix="Form" basePackage="at.ac.tuwien.big" disposableProviderFactory="true"
+      ecorePackage="form.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="form.ecore#//SelectionFieldType">
+      <genEnumLiterals ecoreEnumLiteral="form.ecore#//SelectionFieldType/Radio"/>
+      <genEnumLiterals ecoreEnumLiteral="form.ecore#//SelectionFieldType/Checkbox"/>
+      <genEnumLiterals ecoreEnumLiteral="form.ecore#//SelectionFieldType/Combobox"/>
+    </genEnums>
+    <genClasses ecoreClass="form.ecore#//Form">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference form.ecore#//Form/pages"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference form.ecore#//Form/welcomePage"/>
+    </genClasses>
+    <genClasses ecoreClass="form.ecore#//Page">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference form.ecore#//Page/nextPage"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference form.ecore#//Page/elements"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute form.ecore#//Page/title"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference form.ecore#//Page/previousPage"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference form.ecore#//Page/visibilityConditions"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="form.ecore#//PageElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute form.ecore#//PageElement/elementId"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="form.ecore#//InputField">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute form.ecore#//InputField/label"/>
+    </genClasses>
+    <genClasses ecoreClass="form.ecore#//TextField">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute form.ecore#//TextField/encrypted"/>
+    </genClasses>
+    <genClasses ecoreClass="form.ecore#//SelectionField">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference form.ecore#//SelectionField/items"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute form.ecore#//SelectionField/selectionFieldType"/>
+    </genClasses>
+    <genClasses ecoreClass="form.ecore#//TextArea"/>
+    <genClasses ecoreClass="form.ecore#//SelectionItem">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute form.ecore#//SelectionItem/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute form.ecore#//SelectionItem/label"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute form.ecore#//SelectionItem/selected"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="form.ecore#//Text">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute form.ecore#//Text/content"/>
+    </genClasses>
+    <genClasses ecoreClass="form.ecore#//Heading">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute form.ecore#//Heading/level"/>
+    </genClasses>
+    <genClasses ecoreClass="form.ecore#//Paragraph"/>
+    <genClasses ecoreClass="form.ecore#//List">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute form.ecore#//List/ordered"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference form.ecore#//List/items"/>
+    </genClasses>
+    <genClasses ecoreClass="form.ecore#//ListItem">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute form.ecore#//ListItem/label"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="form.ecore#//VisibilityCondition">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference form.ecore#//VisibilityCondition/concernsElement"/>
+    </genClasses>
+    <genClasses ecoreClass="form.ecore#//SelectionCondition">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference form.ecore#//SelectionCondition/item"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
