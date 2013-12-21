@@ -11,22 +11,25 @@ import at.ac.tuwien.big.form.SelectionField
 import at.ac.tuwien.big.form.SelectionFieldType
 import at.ac.tuwien.big.form.TextArea
 import at.ac.tuwien.big.form.TextField
+import java.io.File
+import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
-import org.eclipse.emf.common.util.EList
+import at.ac.tuwien.big.form.SelectionItem
 
 class Form2HTMLGenerator implements IGenerator {
 
 	override doGenerate(Resource resource, IFileSystemAccess fsa) {
-		for (EObject object : resource.contents) object.generateFile(fsa)
+		var file = new File(resource.getURI().toFileString)
+		for (EObject object : resource.contents) object.generateFile(fsa, file.name.substring(0, file.name.lastIndexOf(".")))
 	}
 	
-	def void generateFile(EObject object, IFileSystemAccess fsa) {
+	def void generateFile(EObject object, IFileSystemAccess fsa, String filename) {
 		if (object instanceof Form) {
 			var form = object as Form
-			fsa.generateFile('''«form.welcomePage.title».html''', form.generateCode)
+			fsa.generateFile('''«filename».html''', form.generateCode)
 		}
 	}
 	
@@ -178,7 +181,7 @@ class Form2HTMLGenerator implements IGenerator {
 		</div>
 	'''
 	
-	def Integer getIndex(EList list, EObject object) {
+	def Integer getIndex(EList<SelectionItem> list, EObject object) {
 		return list.indexOf(object)
 	}
 	

@@ -15,7 +15,9 @@ import at.ac.tuwien.big.form.SelectionItem;
 import at.ac.tuwien.big.form.TextArea;
 import at.ac.tuwien.big.form.TextField;
 import at.ac.tuwien.big.form.VisibilityCondition;
+import java.io.File;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtend2.lib.StringConcatenation;
@@ -25,19 +27,25 @@ import org.eclipse.xtext.generator.IGenerator;
 @SuppressWarnings("all")
 public class Form2HTMLGenerator implements IGenerator {
   public void doGenerate(final Resource resource, final IFileSystemAccess fsa) {
+    URI _uRI = resource.getURI();
+    String _fileString = _uRI.toFileString();
+    File _file = new File(_fileString);
+    File file = _file;
     EList<EObject> _contents = resource.getContents();
     for (final EObject object : _contents) {
-      this.generateFile(object, fsa);
+      String _name = file.getName();
+      String _name_1 = file.getName();
+      int _lastIndexOf = _name_1.lastIndexOf(".");
+      String _substring = _name.substring(0, _lastIndexOf);
+      this.generateFile(object, fsa, _substring);
     }
   }
   
-  public void generateFile(final EObject object, final IFileSystemAccess fsa) {
+  public void generateFile(final EObject object, final IFileSystemAccess fsa, final String filename) {
     if ((object instanceof Form)) {
       Form form = ((Form) object);
       StringConcatenation _builder = new StringConcatenation();
-      Page _welcomePage = form.getWelcomePage();
-      String _title = _welcomePage.getTitle();
-      _builder.append(_title, "");
+      _builder.append(filename, "");
       _builder.append(".html");
       CharSequence _generateCode = this.generateCode(form);
       fsa.generateFile(_builder.toString(), _generateCode);
@@ -476,7 +484,7 @@ public class Form2HTMLGenerator implements IGenerator {
     return _builder;
   }
   
-  public Integer getIndex(final EList list, final EObject object) {
+  public Integer getIndex(final EList<SelectionItem> list, final EObject object) {
     return Integer.valueOf(list.indexOf(object));
   }
   
