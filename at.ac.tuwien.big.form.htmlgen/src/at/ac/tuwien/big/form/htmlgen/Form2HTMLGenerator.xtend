@@ -1,19 +1,21 @@
 package at.ac.tuwien.big.form.htmlgen
 
 import at.ac.tuwien.big.form.Form
+import at.ac.tuwien.big.form.Heading
+import at.ac.tuwien.big.form.InputField
+import at.ac.tuwien.big.form.List
 import at.ac.tuwien.big.form.PageElement
+import at.ac.tuwien.big.form.Paragraph
+import at.ac.tuwien.big.form.SelectionCondition
+import at.ac.tuwien.big.form.SelectionField
+import at.ac.tuwien.big.form.SelectionFieldType
+import at.ac.tuwien.big.form.TextArea
+import at.ac.tuwien.big.form.TextField
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
-import at.ac.tuwien.big.form.Text
-import at.ac.tuwien.big.form.Heading
-import at.ac.tuwien.big.form.Paragraph
-import at.ac.tuwien.big.form.List
-import at.ac.tuwien.big.form.TextField
-import at.ac.tuwien.big.form.TextArea
-import at.ac.tuwien.big.form.SelectionField
-import at.ac.tuwien.big.form.SelectionFieldType
+import at.ac.tuwien.big.form.SelectionItem
 
 class Form2HTMLGenerator implements IGenerator {
 
@@ -39,7 +41,43 @@ class Form2HTMLGenerator implements IGenerator {
     <script src="../assets/jquery-1.10.2.min.js" type="text/javascript"></script>
     <script src="../assets/form.js" type="text/javascript"></script>
     <script type="text/javascript">
-    
+    $(document).ready(
+		function(){
+			form.init();
+			«FOR p : form.pages»
+				«FOR e : p.elements»
+					«IF e instanceof InputField»
+						«IF (e as InputField).mandatory»
+							form.registerMandatory('«(e as InputField).elementId»');
+						«ELSE»
+							form.registerOptional('«(e as InputField).elementId»');
+						«ENDIF»
+					«ENDIF»
+				«ENDFOR»
+			«ENDFOR»
+
+			«FOR p : form.pages»
+				«FOR e : p.elements»
+					form.registerElement('«e.elementId»');
+				«ENDFOR»
+			«ENDFOR»
+			
+			«FOR p : form.pages»
+				«FOR v : p.visibilityConditions»
+					«IF v instanceof SelectionCondition»
+						form.registerConditional('«((v as SelectionCondition).item.eContainer as PageElement).elementId»',
+						'«(v as SelectionCondition).item.label»', 
+						[
+							«FOR ce : (v as SelectionCondition).concernsElements»
+								'«ce.elementId»',
+							«ENDFOR»
+						]);
+					«ENDIF»
+				«ENDFOR»
+			«ENDFOR»
+			
+		}
+	);
     </script>
 </head>
 <body>

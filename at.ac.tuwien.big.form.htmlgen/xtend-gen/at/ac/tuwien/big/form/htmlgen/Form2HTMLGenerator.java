@@ -2,16 +2,19 @@ package at.ac.tuwien.big.form.htmlgen;
 
 import at.ac.tuwien.big.form.Form;
 import at.ac.tuwien.big.form.Heading;
+import at.ac.tuwien.big.form.InputField;
 import at.ac.tuwien.big.form.List;
 import at.ac.tuwien.big.form.ListItem;
 import at.ac.tuwien.big.form.Page;
 import at.ac.tuwien.big.form.PageElement;
 import at.ac.tuwien.big.form.Paragraph;
+import at.ac.tuwien.big.form.SelectionCondition;
 import at.ac.tuwien.big.form.SelectionField;
 import at.ac.tuwien.big.form.SelectionFieldType;
 import at.ac.tuwien.big.form.SelectionItem;
 import at.ac.tuwien.big.form.TextArea;
 import at.ac.tuwien.big.form.TextField;
+import at.ac.tuwien.big.form.VisibilityCondition;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -75,6 +78,119 @@ public class Form2HTMLGenerator implements IGenerator {
     _builder.append("<script type=\"text/javascript\">");
     _builder.newLine();
     _builder.append("    ");
+    _builder.append("$(document).ready(");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("function(){");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("form.init();");
+    _builder.newLine();
+    {
+      EList<Page> _pages = form.getPages();
+      for(final Page p : _pages) {
+        {
+          EList<PageElement> _elements = p.getElements();
+          for(final PageElement e : _elements) {
+            {
+              if ((e instanceof InputField)) {
+                {
+                  boolean _isMandatory = ((InputField) e).isMandatory();
+                  if (_isMandatory) {
+                    _builder.append("\t\t\t");
+                    _builder.append("form.registerMandatory(\'");
+                    String _elementId = ((InputField) e).getElementId();
+                    _builder.append(_elementId, "			");
+                    _builder.append("\');");
+                    _builder.newLineIfNotEmpty();
+                  } else {
+                    _builder.append("\t\t\t");
+                    _builder.append("form.registerOptional(\'");
+                    String _elementId_1 = ((InputField) e).getElementId();
+                    _builder.append(_elementId_1, "			");
+                    _builder.append("\');");
+                    _builder.newLineIfNotEmpty();
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    _builder.newLine();
+    {
+      EList<Page> _pages_1 = form.getPages();
+      for(final Page p_1 : _pages_1) {
+        {
+          EList<PageElement> _elements_1 = p_1.getElements();
+          for(final PageElement e_1 : _elements_1) {
+            _builder.append("\t\t\t");
+            _builder.append("form.registerElement(\'");
+            String _elementId_2 = e_1.getElementId();
+            _builder.append(_elementId_2, "			");
+            _builder.append("\');");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+      }
+    }
+    _builder.append("\t\t\t");
+    _builder.newLine();
+    {
+      EList<Page> _pages_2 = form.getPages();
+      for(final Page p_2 : _pages_2) {
+        {
+          EList<VisibilityCondition> _visibilityConditions = p_2.getVisibilityConditions();
+          for(final VisibilityCondition v : _visibilityConditions) {
+            {
+              if ((v instanceof SelectionCondition)) {
+                _builder.append("\t\t\t");
+                _builder.append("form.registerConditional(\'");
+                SelectionItem _item = ((SelectionCondition) v).getItem();
+                EObject _eContainer = _item.eContainer();
+                String _elementId_3 = ((PageElement) _eContainer).getElementId();
+                _builder.append(_elementId_3, "			");
+                _builder.append("\',");
+                _builder.newLineIfNotEmpty();
+                _builder.append("\t\t\t");
+                _builder.append("\'");
+                SelectionItem _item_1 = ((SelectionCondition) v).getItem();
+                String _label = _item_1.getLabel();
+                _builder.append(_label, "			");
+                _builder.append("\', ");
+                _builder.newLineIfNotEmpty();
+                _builder.append("\t\t\t");
+                _builder.append("[");
+                _builder.newLine();
+                {
+                  EList<PageElement> _concernsElements = ((SelectionCondition) v).getConcernsElements();
+                  for(final PageElement ce : _concernsElements) {
+                    _builder.append("\t\t\t");
+                    _builder.append("\t");
+                    _builder.append("\'");
+                    String _elementId_4 = ce.getElementId();
+                    _builder.append(_elementId_4, "				");
+                    _builder.append("\',");
+                    _builder.newLineIfNotEmpty();
+                  }
+                }
+                _builder.append("\t\t\t");
+                _builder.append("]);");
+                _builder.newLine();
+              }
+            }
+          }
+        }
+      }
+    }
+    _builder.append("\t\t\t");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append(");");
     _builder.newLine();
     _builder.append("    ");
     _builder.append("</script>");
@@ -86,8 +202,8 @@ public class Form2HTMLGenerator implements IGenerator {
     _builder.append("<div class=\"container\">");
     _builder.newLine();
     {
-      EList<Page> _pages = form.getPages();
-      for(final Page p : _pages) {
+      EList<Page> _pages_3 = form.getPages();
+      for(final Page p_3 : _pages_3) {
         _builder.append("<div class=\"page\">");
         _builder.newLine();
         _builder.append("\t");
@@ -100,10 +216,10 @@ public class Form2HTMLGenerator implements IGenerator {
         _builder.append("<fieldset>");
         _builder.newLine();
         {
-          EList<PageElement> _elements = p.getElements();
-          for(final PageElement e : _elements) {
+          EList<PageElement> _elements_2 = p_3.getElements();
+          for(final PageElement e_2 : _elements_2) {
             _builder.append("\t\t\t\t");
-            CharSequence _generateElement = this.generateElement(e);
+            CharSequence _generateElement = this.generateElement(e_2);
             _builder.append(_generateElement, "				");
             _builder.newLineIfNotEmpty();
           }
