@@ -9,6 +9,7 @@ import org.eclipse.xtext.generator.IGenerator
 import at.ac.tuwien.big.form.Text
 import at.ac.tuwien.big.form.Heading
 import at.ac.tuwien.big.form.Paragraph
+import at.ac.tuwien.big.form.List
 
 class Form2HTMLGenerator implements IGenerator {
 
@@ -66,7 +67,15 @@ class Form2HTMLGenerator implements IGenerator {
 			var paragraph = element as Paragraph
 			paragraph.generateParagraph
 		}
-		
+		else if (element instanceof List) {
+			var list = element as List
+			if (list.ordered) {
+				list.generateOrderedList
+			}
+			else {
+				list.generateUnOrderedList
+			}
+		}
 	}
 	
 	def CharSequence generateParagraph(Paragraph paragraph) '''
@@ -77,4 +86,19 @@ class Form2HTMLGenerator implements IGenerator {
 		<h«heading.level» id="«heading.elementId»">«heading.content»</h«heading.level»>
 	'''
 	
+	def CharSequence generateOrderedList(List list) '''
+		<ol id="«list.elementId»">
+		«FOR i : list.items»
+			<li>«i.label»</li>
+		«ENDFOR»
+		</ol>
+	'''
+	
+	def CharSequence generateUnOrderedList(List list) '''
+		<ul id="«list.elementId»">
+		«FOR i : list.items»
+			<li>«i.label»</li>
+		«ENDFOR»
+		</ul>
+	'''
 }
