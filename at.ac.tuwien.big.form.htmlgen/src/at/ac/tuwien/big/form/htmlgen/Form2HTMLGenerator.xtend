@@ -1,11 +1,14 @@
 package at.ac.tuwien.big.form.htmlgen
 
 import at.ac.tuwien.big.form.Form
+import at.ac.tuwien.big.form.PageElement
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
-import org.eclipse.xtext.serializer.sequencer.EmitterNodeFinder
+import at.ac.tuwien.big.form.Text
+import at.ac.tuwien.big.form.Heading
+import at.ac.tuwien.big.form.Paragraph
 
 class Form2HTMLGenerator implements IGenerator {
 
@@ -41,7 +44,9 @@ class Form2HTMLGenerator implements IGenerator {
 		<div class="well">
 			<form action="#">
 				<fieldset>
-				
+					«FOR e : p.elements»
+						«e.generateElement»
+					«ENDFOR»
 				</fieldset>
 			</form>
 		</div>
@@ -51,4 +56,24 @@ class Form2HTMLGenerator implements IGenerator {
 </body>
 </html>
 	'''
+	
+	def CharSequence generateElement(PageElement element) {
+		if (element instanceof Heading) {
+			var heading = element as Heading
+			heading.generateHeading
+		}
+		else if (element instanceof Paragraph) {
+			var paragraph = element as Paragraph
+			paragraph.generateParagraph
+		}
+	}
+	
+	def CharSequence generateParagraph(Paragraph paragraph) '''
+		<p id="«paragraph.elementId»">«paragraph.content»</p>
+	'''
+	
+	def CharSequence generateHeading(Heading heading) '''
+		<h«heading.level» id="«heading.elementId»">«heading.content»</h«heading.level»>
+	'''
+	
 }
