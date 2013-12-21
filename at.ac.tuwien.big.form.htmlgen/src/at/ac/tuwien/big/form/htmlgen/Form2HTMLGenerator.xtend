@@ -172,7 +172,7 @@ class Form2HTMLGenerator implements IGenerator {
 	def CharSequence generateTextArea(TextArea area) '''
 		<div class="control-group">
 			<label for="«area.elementId»">«area.label»</label>
-			<div class="controls">»
+			<div class="controls">
 				<textarea id="«area.elementId»"></textarea>
 			</div>
 		</div>

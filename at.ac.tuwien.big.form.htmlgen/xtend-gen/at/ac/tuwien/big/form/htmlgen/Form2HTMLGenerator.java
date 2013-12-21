@@ -460,7 +460,7 @@ public class Form2HTMLGenerator implements IGenerator {
     _builder.append("</label>");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
-    _builder.append("<div class=\"controls\">»");
+    _builder.append("<div class=\"controls\">");
     _builder.newLine();
     _builder.append("\t\t");
     _builder.append("<textarea id=\"");
