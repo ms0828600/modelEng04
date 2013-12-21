@@ -66,6 +66,7 @@ class Form2HTMLGenerator implements IGenerator {
 			var paragraph = element as Paragraph
 			paragraph.generateParagraph
 		}
+		
 	}
 	
 	def CharSequence generateParagraph(Paragraph paragraph) '''
