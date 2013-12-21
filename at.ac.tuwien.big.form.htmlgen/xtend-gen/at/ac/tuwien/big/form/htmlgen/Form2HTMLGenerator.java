@@ -7,6 +7,10 @@ import at.ac.tuwien.big.form.ListItem;
 import at.ac.tuwien.big.form.Page;
 import at.ac.tuwien.big.form.PageElement;
 import at.ac.tuwien.big.form.Paragraph;
+import at.ac.tuwien.big.form.SelectionField;
+import at.ac.tuwien.big.form.SelectionFieldType;
+import at.ac.tuwien.big.form.SelectionItem;
+import at.ac.tuwien.big.form.TextArea;
 import at.ac.tuwien.big.form.TextField;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
@@ -174,6 +178,30 @@ public class Form2HTMLGenerator implements IGenerator {
               _xblockexpression_3 = (_generateTextField);
             }
             _xifexpression_3 = _xblockexpression_3;
+          } else {
+            CharSequence _xifexpression_4 = null;
+            if ((element instanceof TextArea)) {
+              CharSequence _xblockexpression_4 = null;
+              {
+                TextArea textarea = ((TextArea) element);
+                CharSequence _generateTextArea = this.generateTextArea(textarea);
+                _xblockexpression_4 = (_generateTextArea);
+              }
+              _xifexpression_4 = _xblockexpression_4;
+            } else {
+              CharSequence _xifexpression_5 = null;
+              if ((element instanceof SelectionField)) {
+                CharSequence _xblockexpression_5 = null;
+                {
+                  SelectionField selectionfield = ((SelectionField) element);
+                  CharSequence _generateSelectionField = this.generateSelectionField(selectionfield);
+                  _xblockexpression_5 = (_generateSelectionField);
+                }
+                _xifexpression_5 = _xblockexpression_5;
+              }
+              _xifexpression_4 = _xifexpression_5;
+            }
+            _xifexpression_3 = _xifexpression_4;
           }
           _xifexpression_2 = _xifexpression_3;
         }
@@ -291,6 +319,167 @@ public class Form2HTMLGenerator implements IGenerator {
         String _elementId_2 = field.getElementId();
         _builder.append(_elementId_2, "		");
         _builder.append("\"/>");
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    _builder.append("\t");
+    _builder.append("</div>");
+    _builder.newLine();
+    _builder.append("</div>");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence generateTextArea(final TextArea area) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<div class=\"control-group\">");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("<label for=\"");
+    String _elementId = area.getElementId();
+    _builder.append(_elementId, "	");
+    _builder.append("\">");
+    String _label = area.getLabel();
+    _builder.append(_label, "	");
+    _builder.append("</label>");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("<div class=\"controls\">»");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("<textarea id=\"");
+    String _elementId_1 = area.getElementId();
+    _builder.append(_elementId_1, "		");
+    _builder.append("\"></textarea>");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("</div>");
+    _builder.newLine();
+    _builder.append("</div>");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence generateSelectionField(final SelectionField field) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<div class=\"control-group\">");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("<label class=\"lone\" id=\"label_for_");
+    String _elementId = field.getElementId();
+    _builder.append(_elementId, "	");
+    _builder.append("\">");
+    String _label = field.getLabel();
+    _builder.append(_label, "	");
+    _builder.append("</label>");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("<div class=\"controls\" id=\"");
+    String _elementId_1 = field.getElementId();
+    _builder.append(_elementId_1, "	");
+    _builder.append("\">");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    int idx = 0;
+    _builder.newLineIfNotEmpty();
+    {
+      EList<SelectionItem> _items = field.getItems();
+      for(final SelectionItem i : _items) {
+        {
+          SelectionFieldType _selectionFieldType = field.getSelectionFieldType();
+          boolean _equals = _selectionFieldType.equals(SelectionFieldType.RADIO);
+          if (_equals) {
+            _builder.append("\t");
+            _builder.append("<label class=\"radio\" for=\"");
+            String _elementId_2 = field.getElementId();
+            _builder.append(_elementId_2, "	");
+            _builder.append("_");
+            _builder.append(idx, "	");
+            _builder.append("\">");
+            _builder.newLineIfNotEmpty();
+            _builder.append("\t");
+            _builder.append("\t");
+            _builder.append("<input type=\"radio\" value=\"");
+            String _label_1 = i.getLabel();
+            _builder.append(_label_1, "		");
+            _builder.append("\" name=\"");
+            String _elementId_3 = field.getElementId();
+            _builder.append(_elementId_3, "		");
+            _builder.append("\"");
+            _builder.newLineIfNotEmpty();
+            {
+              boolean _isSelected = i.isSelected();
+              if (_isSelected) {
+                _builder.append("\t");
+                _builder.append("\t");
+                _builder.append("checked=\"checked\"");
+                _builder.newLine();
+              }
+            }
+            _builder.append("\t");
+            _builder.append("\t");
+            _builder.append("id=\"");
+            String _elementId_4 = field.getElementId();
+            _builder.append(_elementId_4, "		");
+            _builder.append("_");
+            _builder.append(idx, "		");
+            _builder.append("\" /> ");
+            String _label_2 = i.getLabel();
+            _builder.append(_label_2, "		");
+            _builder.newLineIfNotEmpty();
+            _builder.append("\t");
+            _builder.append("</label>");
+            _builder.newLine();
+          } else {
+            _builder.append("\t");
+            _builder.append("<label class=\"checkbox\" for=\"");
+            String _elementId_5 = field.getElementId();
+            _builder.append(_elementId_5, "	");
+            _builder.append("_");
+            _builder.append(idx, "	");
+            _builder.append("\">");
+            _builder.newLineIfNotEmpty();
+            _builder.append("\t");
+            _builder.append("\t");
+            _builder.append("<input type=\"checkbox\" value=\"");
+            String _label_3 = i.getLabel();
+            _builder.append(_label_3, "		");
+            _builder.append("\" name=\"");
+            String _elementId_6 = field.getElementId();
+            _builder.append(_elementId_6, "		");
+            _builder.append("\"");
+            _builder.newLineIfNotEmpty();
+            {
+              boolean _isSelected_1 = i.isSelected();
+              if (_isSelected_1) {
+                _builder.append("\t");
+                _builder.append("\t");
+                _builder.append("checked=\"checked\"");
+                _builder.newLine();
+              }
+            }
+            _builder.append("\t");
+            _builder.append("\t");
+            _builder.append("id=\"");
+            String _elementId_7 = field.getElementId();
+            _builder.append(_elementId_7, "		");
+            _builder.append("_");
+            _builder.append(idx, "		");
+            _builder.append("\" /> ");
+            String _label_4 = i.getLabel();
+            _builder.append(_label_4, "		");
+            _builder.newLineIfNotEmpty();
+            _builder.append("\t");
+            _builder.append("</label>");
+            _builder.newLine();
+          }
+        }
+        _builder.append("\t");
+        _builder.append("<!-- TODO: dont print out ");
+        int _plus = (idx + 1);
+        int _idx = idx = _plus;
+        _builder.append(_idx, "	");
+        _builder.append(" -->");
         _builder.newLineIfNotEmpty();
       }
     }

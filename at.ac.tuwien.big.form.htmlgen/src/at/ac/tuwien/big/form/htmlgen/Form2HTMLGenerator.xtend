@@ -11,6 +11,9 @@ import at.ac.tuwien.big.form.Heading
 import at.ac.tuwien.big.form.Paragraph
 import at.ac.tuwien.big.form.List
 import at.ac.tuwien.big.form.TextField
+import at.ac.tuwien.big.form.TextArea
+import at.ac.tuwien.big.form.SelectionField
+import at.ac.tuwien.big.form.SelectionFieldType
 
 class Form2HTMLGenerator implements IGenerator {
 
@@ -81,6 +84,14 @@ class Form2HTMLGenerator implements IGenerator {
 			var textfield = element as TextField
 			textfield.generateTextField
 		}
+		else if (element instanceof TextArea) {
+			var textarea = element as TextArea
+			textarea.generateTextArea
+		}
+		else if (element instanceof SelectionField) {
+			var selectionfield = element as SelectionField
+			selectionfield.generateSelectionField
+		}
 	}
 	
 	def CharSequence generateParagraph(Paragraph paragraph) '''
@@ -116,6 +127,44 @@ class Form2HTMLGenerator implements IGenerator {
 				«ELSE»
 				<input type="text" id="«field.elementId»"/>
 				«ENDIF»
+			</div>
+		</div>
+	'''
+	
+	def CharSequence generateTextArea(TextArea area) '''
+		<div class="control-group">
+			<label for="«area.elementId»">«area.label»</label>
+			<div class="controls">»
+				<textarea id="«area.elementId»"></textarea>
+			</div>
+		</div>
+	'''
+	
+	def CharSequence generateSelectionField(SelectionField field) '''
+		<div class="control-group">
+			<label class="lone" id="label_for_«field.elementId»">«field.label»</label>
+			<div class="controls" id="«field.elementId»">
+			« var idx = 0 »
+			«FOR i : field.items»
+				«IF field.selectionFieldType.equals(SelectionFieldType.RADIO)»
+					<label class="radio" for="«field.elementId»_«idx»">
+						<input type="radio" value="«i.label»" name="«field.elementId»"
+						«IF i.selected»
+							checked="checked"
+						«ENDIF»
+						id="«field.elementId»_«idx»" /> «i.label»
+					</label>
+				«ELSE»
+					<label class="checkbox" for="«field.elementId»_«idx»">
+						<input type="checkbox" value="«i.label»" name="«field.elementId»"
+						«IF i.selected»
+							checked="checked"
+						«ENDIF» 
+						id="«field.elementId»_«idx»" /> «i.label»
+					</label>
+				«ENDIF»
+				<!-- TODO: dont print out « idx = idx + 1 » -->
+			«ENDFOR»
 			</div>
 		</div>
 	'''
