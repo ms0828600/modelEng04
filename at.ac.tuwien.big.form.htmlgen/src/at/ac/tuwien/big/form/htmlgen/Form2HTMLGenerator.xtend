@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
-import at.ac.tuwien.big.form.SelectionItem
+import org.eclipse.emf.common.util.EList
 
 class Form2HTMLGenerator implements IGenerator {
 
@@ -178,12 +178,16 @@ class Form2HTMLGenerator implements IGenerator {
 		</div>
 	'''
 	
+	def Integer getIndex(EList list, EObject object) {
+		return list.indexOf(object)
+	}
+	
 	def CharSequence generateSelectionField(SelectionField field) '''
 		<div class="control-group">
 			<label class="lone" id="label_for_«field.elementId»">«field.label»</label>
 			<div class="controls" id="«field.elementId»">
-			« var idx = 0 »
 			«FOR i : field.items»
+				« var idx = getIndex(field.items, i) »
 				«IF field.selectionFieldType.equals(SelectionFieldType.RADIO)»
 					<label class="radio" for="«field.elementId»_«idx»">
 						<input type="radio" value="«i.label»" name="«field.elementId»"
@@ -201,7 +205,6 @@ class Form2HTMLGenerator implements IGenerator {
 						id="«field.elementId»_«idx»" /> «i.label»
 					</label>
 				«ENDIF»
-				<!-- TODO: dont print out « idx = idx + 1 » -->
 			«ENDFOR»
 			</div>
 		</div>

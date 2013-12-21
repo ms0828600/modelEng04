@@ -476,6 +476,10 @@ public class Form2HTMLGenerator implements IGenerator {
     return _builder;
   }
   
+  public Integer getIndex(final EList list, final EObject object) {
+    return Integer.valueOf(list.indexOf(object));
+  }
+  
   public CharSequence generateSelectionField(final SelectionField field) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("<div class=\"control-group\">");
@@ -495,12 +499,13 @@ public class Form2HTMLGenerator implements IGenerator {
     _builder.append(_elementId_1, "	");
     _builder.append("\">");
     _builder.newLineIfNotEmpty();
-    _builder.append("\t");
-    int idx = 0;
-    _builder.newLineIfNotEmpty();
     {
       EList<SelectionItem> _items = field.getItems();
       for(final SelectionItem i : _items) {
+        _builder.append("\t");
+        EList<SelectionItem> _items_1 = field.getItems();
+        Integer idx = this.getIndex(_items_1, i);
+        _builder.newLineIfNotEmpty();
         {
           SelectionFieldType _selectionFieldType = field.getSelectionFieldType();
           boolean _equals = _selectionFieldType.equals(SelectionFieldType.RADIO);
@@ -590,13 +595,6 @@ public class Form2HTMLGenerator implements IGenerator {
             _builder.newLine();
           }
         }
-        _builder.append("\t");
-        _builder.append("<!-- TODO: dont print out ");
-        int _plus = (idx + 1);
-        int _idx = idx = _plus;
-        _builder.append(_idx, "	");
-        _builder.append(" -->");
-        _builder.newLineIfNotEmpty();
       }
     }
     _builder.append("\t");
