@@ -7,6 +7,7 @@ import at.ac.tuwien.big.form.ListItem;
 import at.ac.tuwien.big.form.Page;
 import at.ac.tuwien.big.form.PageElement;
 import at.ac.tuwien.big.form.Paragraph;
+import at.ac.tuwien.big.form.TextField;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -163,6 +164,18 @@ public class Form2HTMLGenerator implements IGenerator {
             _xblockexpression_2 = (_xifexpression_3);
           }
           _xifexpression_2 = _xblockexpression_2;
+        } else {
+          CharSequence _xifexpression_3 = null;
+          if ((element instanceof TextField)) {
+            CharSequence _xblockexpression_3 = null;
+            {
+              TextField textfield = ((TextField) element);
+              CharSequence _generateTextField = this.generateTextField(textfield);
+              _xblockexpression_3 = (_generateTextField);
+            }
+            _xifexpression_3 = _xblockexpression_3;
+          }
+          _xifexpression_2 = _xifexpression_3;
         }
         _xifexpression_1 = _xifexpression_2;
       }
@@ -243,6 +256,48 @@ public class Form2HTMLGenerator implements IGenerator {
       }
     }
     _builder.append("</ul>");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence generateTextField(final TextField field) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<div class=\"control-group\">");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("<label for=\"");
+    String _elementId = field.getElementId();
+    _builder.append(_elementId, "	");
+    _builder.append("\">");
+    String _label = field.getLabel();
+    _builder.append(_label, "	");
+    _builder.append("</label>");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("<div class=\"controls\">");
+    _builder.newLine();
+    {
+      boolean _isEncrypted = field.isEncrypted();
+      if (_isEncrypted) {
+        _builder.append("\t\t");
+        _builder.append("<input type=\"password\" id=\"");
+        String _elementId_1 = field.getElementId();
+        _builder.append(_elementId_1, "		");
+        _builder.append("\"/>");
+        _builder.newLineIfNotEmpty();
+      } else {
+        _builder.append("\t\t");
+        _builder.append("<input type=\"text\" id=\"");
+        String _elementId_2 = field.getElementId();
+        _builder.append(_elementId_2, "		");
+        _builder.append("\"/>");
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    _builder.append("\t");
+    _builder.append("</div>");
+    _builder.newLine();
+    _builder.append("</div>");
     _builder.newLine();
     return _builder;
   }

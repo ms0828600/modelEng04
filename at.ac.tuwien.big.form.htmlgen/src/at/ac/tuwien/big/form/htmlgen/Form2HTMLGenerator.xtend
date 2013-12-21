@@ -10,6 +10,7 @@ import at.ac.tuwien.big.form.Text
 import at.ac.tuwien.big.form.Heading
 import at.ac.tuwien.big.form.Paragraph
 import at.ac.tuwien.big.form.List
+import at.ac.tuwien.big.form.TextField
 
 class Form2HTMLGenerator implements IGenerator {
 
@@ -76,6 +77,10 @@ class Form2HTMLGenerator implements IGenerator {
 				list.generateUnOrderedList
 			}
 		}
+		else if (element instanceof TextField) {
+			var textfield = element as TextField
+			textfield.generateTextField
+		}
 	}
 	
 	def CharSequence generateParagraph(Paragraph paragraph) '''
@@ -100,5 +105,18 @@ class Form2HTMLGenerator implements IGenerator {
 			<li>«i.label»</li>
 		«ENDFOR»
 		</ul>
+	'''
+	
+	def CharSequence generateTextField(TextField field) '''
+		<div class="control-group">
+			<label for="«field.elementId»">«field.label»</label>
+			<div class="controls">
+				«IF field.encrypted»
+				<input type="password" id="«field.elementId»"/>
+				«ELSE»
+				<input type="text" id="«field.elementId»"/>
+				«ENDIF»
+			</div>
+		</div>
 	'''
 }
